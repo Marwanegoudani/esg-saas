@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <svg width="300" height="100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Logo container -->
+        <g transform="translate(20, 25)">
+            <!-- Your exact SVG paths from the React component -->
+            <svg width="48" height="48" viewBox="0 0 48 48">
+                <path
+                    d="M24 4L4 14V34L24 44L44 34V14L24 4Z"
+                    fill="#2B4B80"
+                    stroke="#4B77B9"
+                    stroke-width="2"
+                />
+                <path
+                    d="M24 4L44 14L24 24L4 14L24 4Z"
+                    fill="#4B77B9"
+                    stroke="#2B4B80"
+                    stroke-width="1"
+                />
+                <path
+                    d="M24 12L34 16V20L24 24L14 20V16L24 12Z"
+                    fill="white"
+                    fill-opacity="0.6"
+                />
+            </svg>
+        </g>
+        
+        <!-- Text part -->
+        <text x="80" y="55" 
+            font-family="Arial, sans-serif" 
+            font-size="32" 
+            font-weight="600" 
+            fill="#2B4B80">
+            Sustain<tspan fill="#4B77B9" font-weight="400">.ai</tspan>
+        </text>
+    </svg>
