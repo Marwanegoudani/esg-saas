@@ -18,6 +18,8 @@ import {
   Tooltip,
   Badge,
   Divider,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -27,17 +29,22 @@ import {
   Assessment as AssessmentIcon,
   Notifications as NotificationsIcon,
   Settings as SettingsIcon,
+  Logout as LogoutIcon,
+  AccountCircle as AccountCircleIcon,
 } from '@mui/icons-material';
+import { useAuth } from '../../contexts/AuthContext';
 import Logo from '../Logo';
 import PageTransition from '../common/PageTransition';
 
 const drawerWidth = 280;
 
 const MainLayout = () => {
+  const { user, logout } = useAuth();
   const theme = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/' },
@@ -111,6 +118,19 @@ const MainLayout = () => {
     </Box>
   );
 
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    handleClose();
+    logout();
+  };
+
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
       <CssBaseline />
@@ -145,10 +165,58 @@ const MainLayout = () => {
             </IconButton>
           </Tooltip>
           <Tooltip title="Profile">
-            <IconButton sx={{ ml: 1 }}>
-              <Avatar sx={{ width: 32, height: 32 }}>U</Avatar>
+            <IconButton
+              onClick={handleMenu}
+              size="large"
+              sx={{ ml: 2 }}
+            >
+              <Avatar sx={{ width: 32, height: 32 }}>
+                {user?.first_name?.[0] || 'U'}
+              </Avatar>
             </IconButton>
           </Tooltip>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            onClick={handleClose}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                overflow: 'visible',
+                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                mt: 1.5,
+                '& .MuiAvatar-root': {
+                  width: 32,
+                  height: 32,
+                  ml: -0.5,
+                  mr: 1,
+                },
+              },
+            }}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          >
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <AccountCircleIcon fontSize="small" />
+              </ListItemIcon>
+              Profile
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <SettingsIcon fontSize="small" />
+              </ListItemIcon>
+              Settings
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleLogout}>
+              <ListItemIcon>
+                <LogoutIcon fontSize="small" />
+              </ListItemIcon>
+              Sign out
+            </MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
 

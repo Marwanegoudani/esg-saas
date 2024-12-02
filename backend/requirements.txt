@@ -9,3 +9,4 @@ fpdf==1.7.2
 openpyxl==3.1.2
 xlsxwriter==3.1.9
 pytest==7.4.3
+Flask-JWT-Extended==4.5.3
